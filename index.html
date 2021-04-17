@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dice Command Builder</title>
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" rel="stylesheet">
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <style>
+        .busy {
+            cursor: progress;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div class="container">
+        <div class="row mb-3">
+            <div class="col">
+                <h1 class="display-1">Dice Command Builder</h1>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <div id="accordionExample" class="accordion">
+                    <div class="accordion-item">
+                        <h2 id="headingOne" class="accordion-header">
+                            <button aria-controls="collapseOne" aria-expanded="true" class="accordion-button collapsed"
+                                    data-bs-target="#collapseOne" data-bs-toggle="collapse" type="button">
+                                <strong>Explanation</strong>
+                            </button>
+                        </h2>
+                        <div id="collapseOne" aria-labelledby="headingOne" class="accordion-collapse collapse"
+                             data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <ul>
+                                    <li>
+                                        <strong>Example:</strong> If you have to roll <code>Wits +
+                                        Awareness</code> use the number of points
+                                        of <code>Wits</code> as <code>Stat 1 </code> and the number of points of <code>Awareness</code>
+                                        as <code>Stat 2</code>.
+                                        Any further modification can be entered as <code>Modifier</code>.
+                                    </li>
+                                    <li>
+                                        The hunger points and the number of successes needed are only used when
+                                        activated. (See
+                                        checkbox in front of input) A deactivated value defaults to 0.
+                                    </li>
+                                    <li>
+                                        <strong>Hint: In case a flat number of D10 should be rolled you can just enter
+                                            the
+                                            number as a modifier and leave everything else at 0. </strong>
+                                    </li>
+                                    <li>
+                                        The command at the bottom should (if no error is displayed) be a reasonable
+                                        input for
+                                        the V5 function of the <a
+                                            href="https://stonewolf18.github.io/masquerade/#/?id=roll5e">Vampire:
+                                        The Masquerade Discord Dice Bot</a> made by Stonewolf18.
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-sm">
+                <label class="form-label" for="statOneInput">Stat 1</label>
+                <div class="input-group">
+                    <input id="statOneInput" v-model="stat1" class="form-control" max="6" min="1" type="range">
+                    <span class="input-group-text">{{ stat1 }}</span>
+                </div>
+            </div>
+            <div class="col-sm">
+                <label class="form-label" for="statTwoInput">Stat 2</label>
+                <div class="input-group">
+                    <input id="statTwoInput" v-model="stat2" class="form-control" max="6" min="1" type="range">
+                    <span class="input-group-text">{{ stat2 }}</span>
+                </div>
+            </div>
+            <div class="col-sm">
+                <label class="form-label" for="statThreeInput">Modifier</label>
+                <input id="statThreeInput" v-model="stat3" class="form-control" type="number">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <label class="form-label" for="inputHunger"><span class="small">(optional)</span> Current Level Of
+                    Hunger</label>
+                <div class="input-group">
+                    <div class="input-group-text">
+                        <input v-model="hungerActivated" class="form-check-input mt-0" type="checkbox"
+                               value="">
+                    </div>
+                    <input id="inputHunger" v-model="hunger" class="form-control" max="5" min="0" type="range"
+                           v-bind:disabled="!hungerActivated">
+                    <span class="input-group-text">Hunger: {{ hunger }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <label class="form-label" for="inputSuccess">(optional) Number of Successes Needed</label>
+                <div class="input-group">
+                    <div class="input-group-text">
+                        <input v-model="successNeededActivated" class="form-check-input mt-0" type="checkbox"
+                               value="">
+                    </div>
+                    <input id="inputSuccess" v-model="successNeeded" class="form-control" max="10"
+                           min="0" type="range" v-bind:disabled="!successNeededActivated">
+                    <span class="input-group-text">Successes: {{ successNeeded }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <label class="form-label" for="inputComment">Comment</label>
+                <textarea id="inputComment" v-model="rollComment" class="form-control"
+                          rows="3"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="input-group input-group-lg">
+                    <input v-model="rollCommand" class="form-control"
+                           readonly type="text"
+                           v-bind:class="{'is-invalid': hasError, 'is-valid': !hasError}">
+                    <button id="buttonCopy" class="btn btn-outline-primary" type="button" @click="copy">Copy</button>
+                    <div class="invalid-feedback" v-bind:class="{hide: !hasError}">
+                        <b>Attention!</b> The command might not work as expected. Please check your input.
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script crossorigin="anonymous"
+        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
