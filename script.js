@@ -7,7 +7,6 @@ let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
 let app = new Vue({
     el: '#app',
     data: {
-        message: 'Hello Vue!',
         stat1: 0,
         stat2: 0,
         stat3: 0,
@@ -15,8 +14,7 @@ let app = new Vue({
         hungerActivated: true,
         successNeeded: 0,
         successNeededActivated: false,
-        rollComment: "",
-        ctaButton: "Copy!"
+        rollComment: ""
     },
     computed: {
         rollCommand: function () {
@@ -59,6 +57,16 @@ let app = new Vue({
     methods : {
         copy: function (){
             copyTextToClipboard(this.rollCommand);
+        },
+        reset: function (){
+            this.stat1= 0;
+            this.stat2= 0;
+            this.stat3= 0;
+            this.hunger= 1;
+            this.hungerActivated= true;
+            this.successNeeded= 0;
+            this.successNeededActivated= false;
+            this.rollComment= "";
         }
     }
 });
