@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta content="light dark" name="color-scheme">
+
     <!-- Primary Meta Tags -->
     <title>Dice Command Builder</title>
     <meta content="Dice Command Builder" name="title">
@@ -25,10 +27,9 @@
     <meta content="https://elrathor.github.io/V5-Dice-Command-Builder/MetaImage.png"
           property="twitter:image">
 
-
-    <meta charset="UTF-8">
-    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
-          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-dark-5@0.1/dist/css/bootstrap-nightshade.min.css"
+          rel="stylesheet">
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -36,6 +37,35 @@
 </head>
 <body>
 <div id="app">
+    <header class="bd-header bg-dark py-3 d-flex align-items-stretch border-bottom border-dark">
+        <div class="container-fluid d-flex align-items-center">
+            <h1 class="d-flex align-items-center fs-4 text-white mb-0">
+                <i class="bi bi-droplet-fill text-danger"></i>
+                Dice Command Builder
+            </h1>
+            <div class="btn-group ms-auto" role="group">
+                <a id="darkmode-button" class="btn btn-outline-secondary" @click="toggleDarkmode">
+                    <i class="bi"
+                       v-bind:class="{'bi-moon': isDarkmode && isDarkmodeInit , 'bi-sun': !isDarkmode && isDarkmodeInit, 'bi-sunglasses': !isDarkmodeInit}"></i>
+                </a>
+
+                <div class="btn-group" role="group">
+                    <button id="btnGroupDrop1" aria-expanded="false" class="btn btn-outline-secondary dropdown-toggle"
+                            data-bs-toggle="dropdown" type="button"></button>
+                    <ul aria-labelledby="btnGroupDrop1" class="dropdown-menu" style="">
+                        <li><a id="darkmode-off-button" class="dropdown-item" @click="setDarkmode(false)">Set Light
+                            Mode</a></li>
+                        <li><a id="darkmode-on-button" class="dropdown-item" @click="setDarkmode(true)">Set Dark
+                            Mode</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a id="darkmode-forget" class="dropdown-item" @click="resetDarkmode">Reset Mode</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
     <div class="container">
         <div class="row mb-3">
             <div class="col">
@@ -79,7 +109,8 @@
                                         input for
                                         the V5 function of the <a
                                             href="https://stonewolf18.github.io/masquerade/#/?id=roll5e">Vampire:
-                                        The Masquerade Discord Dice Bot</a> made by <a href="https://github.com/StoneWolf18">StoneWolf18</a>.
+                                        The Masquerade Discord Dice Bot</a> made by <a
+                                            href="https://github.com/StoneWolf18">StoneWolf18</a>.
                                     </li>
                                 </ul>
                             </div>
@@ -172,14 +203,18 @@
 
             </div>
         </div>
-        <span class="text-muted"> <a href="https://github.com/Elrathor/V5-Dice-Command-Builder" target="_blank">Made</a> with <span style="color: #e25555;">&hearts;</span> by <a href="https://tobias-boyer.dev" target="_blank">Elrathor</a></span>
+        <span class="text-muted"> <a href="https://github.com/Elrathor/V5-Dice-Command-Builder" target="_blank">Made</a> with <span
+                style="color: #e25555;">&hearts;</span> by <a href="https://tobias-boyer.dev"
+                                                              target="_blank">Elrathor</a></span>
 
     </div>
 </div>
 
+
 <script crossorigin="anonymous"
         integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-dark-5@0.1/dist/js/darkmode.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 <script src="script.js"></script>
 </body>

@@ -2,8 +2,7 @@ let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggl
 let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
     return new bootstrap.Tooltip(tooltipTriggerEl)
 });
-
-
+darkmode.inDarkMode
 let app = new Vue({
     el: '#app',
     data: {
@@ -14,7 +13,9 @@ let app = new Vue({
         hungerActivated: true,
         successNeeded: 0,
         successNeededActivated: false,
-        rollComment: ""
+        rollComment: "",
+        isDarkmode: false,
+        isDarkmodeInit: false
     },
     computed: {
         rollCommand: function () {
@@ -53,22 +54,38 @@ let app = new Vue({
 
             return parseInt(this.stat1) < 0 || parseInt(this.stat2) < 0 || hunger < 0 || isNaN(pool);
         }
+
     },
     methods : {
         copy: function (){
             copyTextToClipboard(this.rollCommand);
         },
-        reset: function (){
-            this.stat1= 0;
-            this.stat2= 0;
-            this.stat3= 0;
-            this.hunger= 1;
-            this.hungerActivated= true;
-            this.successNeeded= 0;
-            this.successNeededActivated= false;
-            this.rollComment= "";
-        }
-    }
+        reset: function () {
+            this.stat1 = 0;
+            this.stat2 = 0;
+            this.stat3 = 0;
+            this.hunger = 1;
+            this.hungerActivated = true;
+            this.successNeeded = 0;
+            this.successNeededActivated = false;
+            this.rollComment = "";
+        },
+        toggleDarkmode: function () {
+            darkmode.toggleDarkMode();
+            this.isDarkmode = darkmode.inDarkMode;
+            this.isDarkmodeInit = true;
+        },
+        setDarkmode: function (newState) {
+            darkmode.setDarkMode(newState);
+            this.isDarkmode = darkmode.inDarkMode;
+            this.isDarkmodeInit = true;
+        },
+        resetDarkmode: function () {
+            darkmode.resetDarkMode();
+            this.isDarkmode = darkmode.inDarkMode;
+            this.isDarkmodeInit = true;
+        },
+    },
 });
 
 function fallbackCopyTextToClipboard(text) {
