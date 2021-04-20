@@ -44,7 +44,7 @@
                 Dice Command Builder
             </h1>
             <div class="btn-group ms-auto" role="group">
-                <a id="darkmode-button" class="btn btn-outline-secondary" @click="toggleDarkmode">
+                <a id="darkmode-button" class="btn btn-outline-secondary" @click="toggleDarkmode()">
                     <i class="bi"
                        v-bind:class="{'bi-moon': isDarkmode && isDarkmodeInit , 'bi-sun': !isDarkmode && isDarkmodeInit, 'bi-sunglasses': !isDarkmodeInit}"></i>
                 </a>
@@ -60,7 +60,7 @@
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a id="darkmode-forget" class="dropdown-item" @click="resetDarkmode">Reset Mode</a></li>
+                        <li><a id="darkmode-forget" class="dropdown-item" @click="resetDarkmode()">Reset Mode</a></li>
                     </ul>
                 </div>
             </div>
