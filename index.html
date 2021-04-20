@@ -30,6 +30,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-dark-5@0.1/dist/css/bootstrap-nightshade.min.css"
           rel="stylesheet">
+    <link href="custom.css" rel="stylesheet">
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -46,7 +47,10 @@
             <div class="btn-group ms-auto" role="group">
                 <a id="darkmode-button" class="btn btn-outline-secondary" @click="toggleDarkmode()">
                     <i class="bi"
-                       v-bind:class="{'bi-moon': isDarkmode && isDarkmodeInit , 'bi-sun': !isDarkmode && isDarkmodeInit, 'bi-sunglasses': !isDarkmodeInit}"></i>
+                       v-bind:class="{
+                        'bi-moon': isDarkmode && isDarkmodeInit ,
+                        'bi-sun': !isDarkmode && isDarkmodeInit,
+                        'bi-sunglasses': !isDarkmodeInit}"></i>
                 </a>
 
                 <div class="btn-group" role="group">
@@ -236,10 +240,10 @@
 
             </div>
         </div>
-        <span class="text-muted"> <a href="https://github.com/Elrathor/V5-Dice-Command-Builder" target="_blank">Made</a> with <span
+        <span class="text-muted">
+            <a href="https://github.com/Elrathor/V5-Dice-Command-Builder" target="_blank">Made</a> with <span
                 style="color: #e25555;">&hearts;</span> by <a href="https://tobias-boyer.dev"
                                                               target="_blank">Elrathor</a></span>
-
     </div>
 </div>
 
