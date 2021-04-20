@@ -41,7 +41,7 @@
         <div class="container-fluid d-flex align-items-center">
             <h1 class="d-flex align-items-center fs-4 text-white mb-0">
                 <i class="bi bi-droplet-fill text-danger"></i>
-                Dice Command Builder
+                <i class="bi bi-dice-1 text-danger"></i>
             </h1>
             <div class="btn-group ms-auto" role="group">
                 <a id="darkmode-button" class="btn btn-outline-secondary" @click="toggleDarkmode()">
@@ -53,14 +53,20 @@
                     <button id="btnGroupDrop1" aria-expanded="false" class="btn btn-outline-secondary dropdown-toggle"
                             data-bs-toggle="dropdown" type="button"></button>
                     <ul aria-labelledby="btnGroupDrop1" class="dropdown-menu" style="">
-                        <li><a id="darkmode-off-button" class="dropdown-item" @click="setDarkmode(false)">Set Light
-                            Mode</a></li>
-                        <li><a id="darkmode-on-button" class="dropdown-item" @click="setDarkmode(true)">Set Dark
-                            Mode</a></li>
+                        <li>
+                            <a id="darkmode-off-button" class="dropdown-item" @click="setDarkmode(false)">Set Light
+                                Mode</a>
+                        </li>
+                        <li>
+                            <a id="darkmode-on-button" class="dropdown-item" @click="setDarkmode(true)">Set Dark
+                                Mode</a>
+                        </li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a id="darkmode-forget" class="dropdown-item" @click="resetDarkmode()">Reset Mode</a></li>
+                        <li>
+                            <a id="darkmode-forget" class="dropdown-item" @click="resetDarkmode()">Reset Mode</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -136,49 +142,74 @@
         <div class="row mb-3">
             <div class="col-sm">
                 <label class="form-label" for="statOneInput">Stat 1</label>
-                <div class="input-group">
-                    <input id="statOneInput" v-model="stat1" class="form-control" max="6" min="0" type="range">
-                    <span class="input-group-text">{{ stat1 }}</span>
+                <div class="row">
+                    <div class="col">
+                        <input id="statOneInput" v-model="stat1" class="form-range" max="6" min="0" type="range">
+                    </div>
+                    <div class="col-auto">
+                        <span><strong>{{ stat1 }} Points</strong></span>
+                    </div>
                 </div>
             </div>
             <div class="col-sm">
                 <label class="form-label" for="statTwoInput">Stat 2</label>
-                <div class="input-group">
-                    <input id="statTwoInput" v-model="stat2" class="form-control" max="6" min="0" type="range">
-                    <span class="input-group-text">{{ stat2 }}</span>
+                <div class="row">
+                    <div class="col">
+                        <input id="statTwoInput" v-model="stat2" class="form-range" max="6" min="0" type="range">
+                    </div>
+                    <div class="col-auto">
+                        <span><strong>{{ stat2 }} Points</strong></span>
+                    </div>
                 </div>
             </div>
             <div class="col-sm">
                 <label class="form-label" for="statThreeInput">Modifier</label>
-                <input id="statThreeInput" v-model="stat3" class="form-control" type="number">
+                <div class="input-group">
+                    <input id="statThreeInput" v-model="stat3" class="form-control" type="number">
+                    <button class="btn btn-outline-secondary" @click="increaseModifier"><i class="bi bi-chevron-up"></i>
+                    </button>
+                    <button class="btn btn-outline-secondary" @click="decreaseModifier"><i
+                            class="bi bi-chevron-down"></i></button>
+                </div>
             </div>
         </div>
         <div class="row mb-3">
             <div class="col">
                 <label class="form-label" for="inputHunger"><span class="small">(optional)</span> Current Level Of
                     Hunger</label>
-                <div class="input-group">
-                    <div class="input-group-text">
-                        <input v-model="hungerActivated" class="form-check-input mt-0" type="checkbox"
-                               value="">
+                <div class="row">
+                    <div class="col-auto">
+                        <div class="form-check form-switch">
+                            <input id="inputCheckboxHunger" v-model="hungerActivated" class="form-check-input"
+                                   type="checkbox">
+                        </div>
                     </div>
-                    <input id="inputHunger" v-model="hunger" class="form-control" max="5" min="0" type="range"
-                           v-bind:disabled="!hungerActivated">
-                    <span class="input-group-text">Hunger: {{ hunger }}</span>
+                    <div class="col">
+                        <input id="inputHunger" v-model="hunger" class="form-range" max="5" min="0" type="range"
+                               v-bind:disabled="!hungerActivated">
+                    </div>
+                    <div class="col-auto"><span><strong>{{ hunger }} Hunger</strong></span></div>
                 </div>
             </div>
         </div>
         <div class="row mb-3">
             <div class="col">
-                <label class="form-label" for="inputSuccess">(optional) Number of Successes Needed</label>
-                <div class="input-group">
-                    <div class="input-group-text">
-                        <input v-model="successNeededActivated" class="form-check-input mt-0" type="checkbox"
-                               value="">
+                <label class="form-label" for="inputSuccess"><span class="small">(optional)</span> Number of Successes
+                    Needed</label>
+                <div class="row">
+                    <div class="col-auto">
+                        <div class="form-check form-switch">
+                            <input v-model="successNeededActivated" class="form-check-input" type="checkbox"
+                                   value="">
+                        </div>
                     </div>
-                    <input id="inputSuccess" v-model="successNeeded" class="form-control" max="10"
-                           min="0" type="range" v-bind:disabled="!successNeededActivated">
-                    <span class="input-group-text">Successes: {{ successNeeded }}</span>
+                    <div class="col">
+                        <input id="inputSuccess" v-model="successNeeded" class="form-range" max="10"
+                               min="0" type="range" v-bind:disabled="!successNeededActivated">
+                    </div>
+                    <div class="col-auto">
+                        <span> <strong>{{ successNeeded }} Successes</strong></span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -195,7 +226,9 @@
                     <input v-model="rollCommand" class="form-control"
                            readonly type="text"
                            v-bind:class="{'is-invalid': hasError, 'is-valid': !hasError}">
-                    <button id="buttonCopy" class="btn btn-outline-primary" type="button" @click="copy">Copy</button>
+                    <button id="buttonCopy" class="btn btn-outline-primary" type="button" @click="copy"><i
+                            class="bi bi-clipboard"></i> Copy
+                    </button>
                     <div class="invalid-feedback" v-bind:class="{hide: !hasError}">
                         <b>Attention!</b> The command might not work as expected. Please check your input.
                     </div>

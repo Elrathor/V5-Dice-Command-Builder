@@ -85,6 +85,12 @@ let app = new Vue({
             this.isDarkmode = darkmode.inDarkMode;
             this.isDarkmodeInit = true;
         },
+        increaseModifier: function () {
+            this.stat3++;
+        },
+        decreaseModifier: function () {
+            this.stat3--;
+        }
     },
 });
 
