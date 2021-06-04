@@ -33,9 +33,6 @@ let app = new Vue({
             //Use only hunger dice, when the pool is larger than the hunger. Otherwise subtract hunger from pool to replace it
             if(hunger >= pool) {
                 hunger = pool;
-                pool = 0;
-            } else {
-                pool = pool - hunger;
             }
 
             //If the number of needed successes is active, use it or set it zero otherwise
