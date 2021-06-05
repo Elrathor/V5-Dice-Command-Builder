@@ -145,25 +145,23 @@
         </div>
         <div class="row mb-3">
             <div class="col-sm">
-                <label class="form-label" for="statOneInput">Stat 1</label>
-                <div class="row">
-                    <div class="col">
-                        <input id="statOneInput" v-model="stat1" class="form-range" max="6" min="0" type="range">
-                    </div>
-                    <div class="col-auto">
-                        <span><strong>{{ stat1 }} Points</strong></span>
-                    </div>
+                <label class="form-label" for="statThreeInput">Stat 1</label>
+                <div class="input-group">
+                    <input id="statOneInput" v-model="stat1" class="form-control" type="number">
+                    <button class="btn btn-outline-secondary" @click="increaseStat1"><i class="bi bi-chevron-up"></i>
+                    </button>
+                    <button class="btn btn-outline-secondary" @click="decreaseStat1"><i
+                            class="bi bi-chevron-down"></i></button>
                 </div>
             </div>
             <div class="col-sm">
-                <label class="form-label" for="statTwoInput">Stat 2</label>
-                <div class="row">
-                    <div class="col">
-                        <input id="statTwoInput" v-model="stat2" class="form-range" max="6" min="0" type="range">
-                    </div>
-                    <div class="col-auto">
-                        <span><strong>{{ stat2 }} Points</strong></span>
-                    </div>
+                <label class="form-label" for="statThreeInput">Stat 2</label>
+                <div class="input-group">
+                    <input id="statTwoInput" v-model="stat2" class="form-control" type="number">
+                    <button class="btn btn-outline-secondary" @click="increaseStat2"><i class="bi bi-chevron-up"></i>
+                    </button>
+                    <button class="btn btn-outline-secondary" @click="decreaseStat2"><i
+                            class="bi bi-chevron-down"></i></button>
                 </div>
             </div>
             <div class="col-sm">
@@ -189,16 +187,20 @@
                         </div>
                     </div>
                     <div class="col">
-                        <input id="inputHunger" v-model="hunger" class="form-range" max="5" min="0" type="range"
-                               v-bind:disabled="!hungerActivated">
+                        <div class="input-group">
+                            <input id="inputHunger" max="5" min="0" v-model="hunger" v-bind:disabled="!hungerActivated" class="form-control" type="number">
+                            <button class="btn btn-outline-secondary" @click="increaseHunger"><i class="bi bi-chevron-up"></i>
+                            </button>
+                            <button class="btn btn-outline-secondary" @click="decreaseHunger"><i
+                                    class="bi bi-chevron-down"></i></button>
+                        </div>
                     </div>
-                    <div class="col-auto"><span><strong>{{ hunger }} Hunger</strong></span></div>
                 </div>
             </div>
         </div>
         <div class="row mb-3">
             <div class="col">
-                <label class="form-label" for="inputSuccess"><span class="small">(optional)</span> Number of Successes
+                <label class="form-label" for="inputSuccess"><span class="small">(optional)</span> Number Of Successes
                     Needed</label>
                 <div class="row">
                     <div class="col-auto">
@@ -208,11 +210,13 @@
                         </div>
                     </div>
                     <div class="col">
-                        <input id="inputSuccess" v-model="successNeeded" class="form-range" max="10"
-                               min="0" type="range" v-bind:disabled="!successNeededActivated">
-                    </div>
-                    <div class="col-auto">
-                        <span> <strong>{{ successNeeded }} Successes</strong></span>
+                        <div class="input-group">
+                            <input id="inputSuccess" min="0" v-model="successNeeded" v-bind:disabled="!successNeededActivated" class="form-control" type="number">
+                            <button class="btn btn-outline-secondary" @click="increaseSuccessNeeded"><i class="bi bi-chevron-up"></i>
+                            </button>
+                            <button class="btn btn-outline-secondary" @click="decreaseSuccessNeeded"><i
+                                    class="bi bi-chevron-down"></i></button>
+                        </div>
                     </div>
                 </div>
             </div>
