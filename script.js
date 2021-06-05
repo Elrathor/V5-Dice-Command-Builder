@@ -87,6 +87,34 @@ let app = new Vue({
         },
         decreaseModifier: function () {
             this.stat3--;
+        },
+        increaseStat1: function () {
+            this.stat1++;
+        },
+        decreaseStat1: function () {
+            this.stat1--;
+        },
+        increaseStat2: function () {
+            this.stat2++;
+        },
+        decreaseStat2: function () {
+            this.stat2--;
+        },
+        increaseHunger: function () {
+            if(this.hungerActivated && this.hunger < 5)
+                this.hunger++;
+        },
+        decreaseHunger: function () {
+            if(this.hungerActivated && this.hunger > 0)
+                this.hunger--;
+        },
+        increaseSuccessNeeded: function () {
+            if(this.successNeededActivated)
+                this.successNeeded++;
+        },
+        decreaseSuccessNeeded: function () {
+            if(this.successNeededActivated && this.successNeededActivated > 0)
+                this.successNeeded--;
         }
     },
 });
